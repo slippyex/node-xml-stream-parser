@@ -1,5 +1,5 @@
 {
-	"name": "node-xml-stream",
+	"name": "node-xml-stream-parser",
 	"version": "1.0.2",
 	"description": "A fast XML parser using streams.",
 	"main": "dist/index.js",
@@ -16,13 +16,15 @@
 		"XML Stream Parser",
 		"XML Stream",
 		"Streaming XML",
-		"Fast XML Parser"
+		"Fast XML Parser",
+		"nodeJS"
 	],
 	"author": "Tommy Dronkers",
+	"contributors": [{"name":"Mario Fahlandt"}],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Steeljuice/node-xml-stream"
+		"url": "https://github.com/mfahlandt/node-xml-stream"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.24.1",

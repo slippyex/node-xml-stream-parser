@@ -1,10 +1,15 @@
 # node-xml-stream
 
+
 ---
 
 ### Summary
 * A tiny simple and fast XML/HTML stream parser with an easy-to-use interface (using NodeJS streams)
 * A very effective (fast) way to detal with RSS/ATOM/RDF feeds
+
+
+Copy from https://github.com/Steeljuice/node-xml-stream because of inactivity of Project
+
 
 ---
 ### Motivation
