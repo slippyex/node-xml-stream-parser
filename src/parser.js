@@ -164,19 +164,26 @@ export default class Parser extends Writable {
 	 */
 	_parseTagString(str) {
 		// parse name
-		let name = /^(\w+?)(\s|$)/.exec(str)[1];
 
-		// parse attributes
-		let attributesString = str.substr(name.length);
-		const attributeRegexp = /(\w+?)="([^"]+?)"/g;
-		let match = attributeRegexp.exec(attributesString);
-		let attributes = {};
-		while (match != null){
-			attributes[match[1]] = match[2];
-			match = attributeRegexp.exec(attributesString);
+		let name;
+		let parsedString = /^([a-zA-Z0-9:_|]+?)(\s|$)/.exec(str);
+		if(parsedString){
+			name = parsedString[1];
+            let attributesString = str.substr(name.length);
+            const attributeRegexp = /([a-zA-Z0-9:_\-\.]+?)="([^"]+?)"/g;
+            let match = attributeRegexp.exec(attributesString);
+            let attributes = {};
+            while (match != null){
+                attributes[match[1]] = match[2];
+                match = attributeRegexp.exec(attributesString);
+            }
+            return { name, attributes };
 		}
 
-		return { name, attributes };
+		// parse attributes
+
+
+
 	}
 }
 

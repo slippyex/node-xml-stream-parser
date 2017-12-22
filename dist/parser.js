@@ -213,19 +213,24 @@ var Parser = function (_Writable) {
 		key: '_parseTagString',
 		value: function _parseTagString(str) {
 			// parse name
-			var name = /^(\w+?)(\s|$)/.exec(str)[1];
 
-			// parse attributes
-			var attributesString = str.substr(name.length);
-			var attributeRegexp = /(\w+?)="([^"]+?)"/g;
-			var match = attributeRegexp.exec(attributesString);
-			var attributes = {};
-			while (match != null) {
-				attributes[match[1]] = match[2];
-				match = attributeRegexp.exec(attributesString);
+			var name = void 0;
+			var parsedString = /^([a-zA-Z0-9:_|]+?)(\s|$)/.exec(str);
+			if (parsedString) {
+				name = parsedString[1];
+				var attributesString = str.substr(name.length);
+				var attributeRegexp = /([a-zA-Z0-9:_\-\.]+?)="([^"]+?)"/g;
+				var match = attributeRegexp.exec(attributesString);
+				var attributes = {};
+				while (match != null) {
+					attributes[match[1]] = match[2];
+					match = attributeRegexp.exec(attributesString);
+				}
+				return { name: name, attributes: attributes };
 			}
 
-			return { name: name, attributes: attributes };
+			// parse attributes
+
 		}
 	}]);
 

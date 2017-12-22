@@ -14,119 +14,133 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 describe('node-xml-stream', function () {
 
-	describe('Emit instruction', function () {
+    describe('Emit instruction', function () {
 
-		it('#on(instruction)', function (done) {
-			var p = new _index2.default();
+        it('#on(instruction)', function (done) {
+            var p = new _index2.default();
 
-			p.on('instruction', function (name, attrs) {
-				(0, _chai.expect)(name).to.eql('xml');
-				(0, _chai.expect)(attrs).to.be.a('object').with.property('version', '2.0');
-				(0, _chai.expect)(attrs).to.have.property('encoding', 'utf-8');
-				done();
-			});
+            p.on('instruction', function (name, attrs) {
+                (0, _chai.expect)(name).to.eql('xml');
+                (0, _chai.expect)(attrs).to.be.a('object').with.property('version', '2.0');
+                (0, _chai.expect)(attrs).to.have.property('encoding', 'utf-8');
+                done();
+            });
 
-			p.write('<root><?xml version="2.0" encoding="utf-8"?></root>');
-		});
-	});
+            p.write('<root><?xml version="2.0" encoding="utf-8"?></root>');
+        });
+    });
+    describe('Emit Tag after that have namespace ', function () {
 
-	describe('Emit opentag', function () {
-		it('#on(opentag)', function (done) {
-			var p = new _index2.default();
+        it('#on(instruction)', function (done) {
+            var p = new _index2.default();
 
-			p.on('opentag', function (name, attrs) {
-				(0, _chai.expect)(name).to.eql('root');
-				(0, _chai.expect)(attrs).to.be.a('object').with.property('name', 'steeljuice');
-				done();
-			});
+            p.on('opentag', function (name, attrs) {
+                (0, _chai.expect)(name).to.eql('imo:openimmo');
+                (0, _chai.expect)(attrs).to.be.a('object').with.property('xmlns:imo', 'http://www.openimmo.de');
+                done();
+            });
 
-			p.write('<root name="steeljuice"><sub>TEXT</sub></root>');
-		});
-	});
+            p.write('<?xml version="1.0" encoding="UTF-8"?><imo:openimmo xmlns:imo="http://www.openimmo.de" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:schemaLocation="http://www.openimmo.de openimmo.xsd"></imo:openimmo>');
+        });
+    });
 
-	describe('Emit closetag', function () {
-		it('#on(closetag)', function (done) {
-			var p = new _index2.default();
+    describe('Emit opentag', function () {
+        it('#on(opentag)', function (done) {
+            var p = new _index2.default();
 
-			p.on('closetag', function (name) {
-				(0, _chai.expect)(name).to.eql('root');
-				done();
-			});
+            p.on('opentag', function (name, attrs) {
+                (0, _chai.expect)(name).to.eql('root');
+                (0, _chai.expect)(attrs).to.be.a('object').with.property('name', 'steeljuice');
+                done();
+            });
 
-			p.write('<root name="steeljuice">TEXT</root>');
-		});
+            p.write('<root name="steeljuice"><sub>TEXT</sub></root>');
+        });
+    });
 
-		it('#on(closetag) self closing.', function (done) {
-			var p = new _index2.default();
-			p.on('closetag', function (name, attrs) {
-				(0, _chai.expect)(name).to.eql('self');
-				(0, _chai.expect)(attrs).to.be.a('object').with.property('name', 'steeljuice');
-			});
+    describe('Emit closetag', function () {
+        it('#on(closetag)', function (done) {
+            var p = new _index2.default();
 
-			p.write('<self name="steeljuice"/>');
-			p.write('<self name="steeljuice" />');
-			done();
-		});
-	});
+            p.on('closetag', function (name) {
+                (0, _chai.expect)(name).to.eql('root');
+                done();
+            });
 
-	describe('Emit text', function () {
+            p.write('<root name="steeljuice">TEXT</root>');
+        });
 
-		it('#on(text)', function (done) {
-			var p = new _index2.default();
-			p.on('text', function (text) {
-				(0, _chai.expect)(text).to.eql('SteelJuice');
-				done();
-			});
-			p.write('<root>SteelJuice</root>');
-		});
-	});
+        it('#on(closetag) self closing.', function (done) {
+            var p = new _index2.default();
+            p.on('closetag', function (name, attrs) {
+                (0, _chai.expect)(name).to.eql('self');
+                (0, _chai.expect)(attrs).to.be.a('object').with.property('name', 'steeljuice');
+            });
 
-	describe('Emit CDATA', function () {
+            p.write('<self name="steeljuice"/>');
+            p.write('<self name="steeljuice" />');
+            done();
+        });
+    });
 
-		it('#on(cdata)', function (done) {
-			var p = new _index2.default();
+    describe('Emit text', function () {
 
-			p.on('cdata', function (cdata) {
-				(0, _chai.expect)(cdata).to.eql('<p>cdata-text</br></p>');
-				done();
-			});
+        it('#on(text)', function (done) {
+            var p = new _index2.default();
+            p.on('text', function (text) {
+                (0, _chai.expect)(text).to.eql('SteelJuice');
+                done();
+            });
+            p.write('<root>SteelJuice</root>');
+        });
+    });
 
-			p.write('<root><![CDATA[<p>cdata-text</br></p>]]</root>');
-		});
-	});
+    describe('Emit CDATA', function () {
 
-	describe('Ignore comments', function () {
+        it('#on(cdata)', function (done) {
+            var p = new _index2.default();
 
-		it('#on(text) with comments', function (done) {
-			var p = new _index2.default();
-			p.on('text', function (text) {
-				(0, _chai.expect)(text).to.eql('TEXT');
-				done();
-			});
+            p.on('cdata', function (cdata) {
+                (0, _chai.expect)(cdata).to.eql('<p>cdata-text</br></p>');
+                done();
+            });
 
-			p.write('<root><!--Comment is written here! -->TEXT<!-- another comment! --></root>');
-		});
-	});
+            p.write('<root><![CDATA[<p>cdata-text</br></p>]]</root>');
+        });
+    });
 
-	describe('Stream', function () {
-		it('#pipe() a stream.', function (done) {
-			var p = new _index2.default();
-			var stream = _fs2.default.createReadStream('./test/intertwingly.atom');
-			stream.pipe(p);
+    describe('Ignore comments', function () {
 
-			// Count the number of entry tags found (start/closing) and compare them (they should be the same) when the stream is completed.
-			var entryclose = 0;
-			var entrystart = 0;
-			p.on('closetag', function (name) {
-				if (name === 'entry') entryclose++;
-			});
-			p.on('opentag', function (name) {
-				if (name === 'entry') entrystart++;
-			});
-			p.on('finish', function () {
-				(0, _chai.expect)(entryclose).to.eql(entrystart);
-				done();
-			});
-		});
-	});
+        it('#on(text) with comments', function (done) {
+            var p = new _index2.default();
+            p.on('text', function (text) {
+                (0, _chai.expect)(text).to.eql('TEXT');
+                done();
+            });
+
+            p.write('<root><!--Comment is written here! -->TEXT<!-- another comment! --></root>');
+        });
+    });
+
+    describe('Stream', function () {
+        it('#pipe() a stream.', function (done) {
+            var p = new _index2.default();
+            var stream = _fs2.default.createReadStream('./test/intertwingly.atom');
+            stream.pipe(p);
+
+            // Count the number of entry tags found (start/closing) and compare them (they should be the same) when the stream is completed.
+            var entryclose = 0;
+            var entrystart = 0;
+            p.on('closetag', function (name) {
+                if (name === 'entry') entryclose++;
+            });
+            p.on('opentag', function (name) {
+                if (name === 'entry') entrystart++;
+            });
+            p.on('finish', function () {
+                (0, _chai.expect)(entryclose).to.eql(entrystart);
+                done();
+            });
+        });
+    });
 });
