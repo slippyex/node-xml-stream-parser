@@ -1,6 +1,6 @@
 {
 	"name": "node-xml-stream-parser",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "A fast XML parser using streams.",
 	"main": "dist/index.js",
 	"scripts": {

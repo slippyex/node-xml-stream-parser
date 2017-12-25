@@ -166,7 +166,7 @@ export default class Parser extends Writable {
 		// parse name
 
 		let name;
-		let parsedString = /^([a-zA-Z0-9:_|]+?)(\s|$)/.exec(str);
+		let parsedString = /^([a-zA-Z0-9:_\-\.]+?)(\s|$)/.exec(str);
 		if(parsedString){
 			name = parsedString[1];
             let attributesString = str.substr(name.length);

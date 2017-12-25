@@ -215,7 +215,7 @@ var Parser = function (_Writable) {
 			// parse name
 
 			var name = void 0;
-			var parsedString = /^([a-zA-Z0-9:_|]+?)(\s|$)/.exec(str);
+			var parsedString = /^([a-zA-Z0-9:_\-\.]+?)(\s|$)/.exec(str);
 			if (parsedString) {
 				name = parsedString[1];
 				var attributesString = str.substr(name.length);
