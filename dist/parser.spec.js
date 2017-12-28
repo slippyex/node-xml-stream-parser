@@ -91,7 +91,7 @@ describe('node-xml-stream', function () {
                 (0, _chai.expect)(text).to.eql('SteelJuice');
                 done();
             });
-            p.write('<root>SteelJuice</root>');
+            p.write('<self name="steeljuice"/><root>SteelJuice</root>');
         });
     });
 
