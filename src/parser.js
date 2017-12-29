@@ -92,7 +92,7 @@ const Parser = function (_Writable) {
                         }
                         if (c === '>') {
                             if (prev === "/") {
-                                this.tagType = TAG_TYPE.CLOSING;
+                                this.tagType = TAG_TYPE.SELF_CLOSING;
                             }
                             this._onTagCompleted();
                         }
@@ -145,6 +145,10 @@ const Parser = function (_Writable) {
             }
 
             if (this.tagType && this.tagType === TAG_TYPE.CLOSING) {
+                this.emit(EVENTS.CLOSE_TAG, name, attributes);
+            }
+            if (this.tagType && this.tagType === TAG_TYPE.SELF_CLOSING) {
+                this.emit(EVENTS.OPEN_TAG, name, attributes);
                 this.emit(EVENTS.CLOSE_TAG, name, attributes);
             }
 
