@@ -15,6 +15,7 @@ let _createClass = (function() {
       Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
+
   return function(Constructor, protoProps, staticProps) {
     if (protoProps) defineProperties(Constructor.prototype, protoProps);
     if (staticProps) defineProperties(Constructor, staticProps);
@@ -221,6 +222,12 @@ const Parser = (function(_Writable) {
           this.emit(EVENTS.CLOSE_TAG, name, attributes);
         }
         if (this.tagType && this.tagType === TAG_TYPE.SELF_CLOSING) {
+          if (
+            Object.keys(attributes).length === 0 &&
+            attributes.constructor === Object
+          ) {
+            attributes = { ___selfClosing___: true };
+          }
           this.emit(EVENTS.OPEN_TAG, name, attributes);
           this.emit(EVENTS.CLOSE_TAG, name, attributes);
         }
