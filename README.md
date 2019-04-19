@@ -21,11 +21,13 @@ If you need a parser that is more heavy-weight with more functionality I recomme
 Reads XML/HTML streams fast and emitts events for:
 * Tag Openings (opentag) <tag attr="1.0"\>
 * Closing tags (closetag) </tag\>
+* Self closing tags (closetag) <tag \/\>
 * CDATA (cdata) <[[CDATA[data]]>
 * Instructions (instruction) <?xml version="1.0?\>
 
 All comments are  ignored (not emitted). `<!DOCTYPES`, `<!ENTITY` are also ignored, I haven't found any real need for them yet parsing RSS/ATOM/RDF.
 
+Important notice due some self closing tags do not have an empty space we strip the last / at the end of a tag name. So if your tag is named somthing/ it will not work.
 
 ### Installation
 Install via NPM using command:
@@ -112,7 +114,7 @@ All the default stream events for NodeJS streams and the below extra events that
 
 
 ### Contributing
-Pull requests and stars always welcome. For bugs and feature requests, please [create an issue.](https://github.com/Steeljuice/node-xml-stream/issues)
+Pull requests and stars always welcome. For bugs and feature requests, please [create an issue.](https://github.com/mfahlandt/node-xml-stream-parser/issues)
 
 ### License
-MIT © Tommy Dronkers
+MIT

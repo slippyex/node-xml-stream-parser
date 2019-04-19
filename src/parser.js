@@ -323,6 +323,9 @@ const Parser = (function(_Writable) {
             attributes[match[1]] = match[2];
             match = attributeRegexp.exec(attributesString);
           }
+          if (name[name.length - 1] === "/") {
+            name = name.substr(0, name.length - 1);
+          }
           return { name: name, attributes: attributes };
         }
         return { name: null, attributes: {} };

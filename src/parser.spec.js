@@ -83,6 +83,7 @@ describe("node-xml-stream", function() {
     it("#on(closetag) empty self closing.", function(done) {
       let p = new Parser();
       p.on("closetag", function(name, attrs) {
+        console.log(name);
         expect(name).to.eql("self");
         expect(attrs)
           .to.be.a("object")
@@ -90,6 +91,19 @@ describe("node-xml-stream", function() {
       });
 
       p.write("<self/>");
+      done();
+    });
+    it("#on(closetag) empty self closing without space.", function(done) {
+      let p = new Parser();
+      p.on("closetag", function(name, attrs) {
+        console.log(name);
+        expect(name).to.eql("self");
+        expect(attrs)
+          .to.be.a("object")
+          .with.property("___selfClosing___", true);
+      });
+
+      p.write("<self />");
       done();
     });
   });

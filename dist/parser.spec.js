@@ -80,11 +80,23 @@ describe("node-xml-stream", function () {
     it("#on(closetag) empty self closing.", function (done) {
       var p = new _index2.default();
       p.on("closetag", function (name, attrs) {
+        console.log(name);
         (0, _chai.expect)(name).to.eql("self");
         (0, _chai.expect)(attrs).to.be.a("object").with.property("___selfClosing___", true);
       });
 
       p.write("<self/>");
+      done();
+    });
+    it("#on(closetag) empty self closing without space.", function (done) {
+      var p = new _index2.default();
+      p.on("closetag", function (name, attrs) {
+        console.log(name);
+        (0, _chai.expect)(name).to.eql("self");
+        (0, _chai.expect)(attrs).to.be.a("object").with.property("___selfClosing___", true);
+      });
+
+      p.write("<self />");
       done();
     });
   });
