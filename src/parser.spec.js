@@ -128,7 +128,20 @@ describe("node-xml-stream", function() {
         done();
       });
 
-      p.write("<root><![CDATA[<p>cdata-text</br></p>]]</root>");
+      p.write("<root><![CDATA[<p>cdata-text</br></p>]]></root>");
+    });
+  });
+
+  describe("Emit CDATA with square-bracket text", function() {
+    it("#on(cdata)", function(done) {
+      let p = new Parser();
+
+      p.on("cdata", function(cdata) {
+        expect(cdata).to.eql("<p>cdata-text with some square-bracket-wrapped text [[12345]]</br></p>");
+        done();
+      });
+
+      p.write("<root><![CDATA[<p>cdata-text with some square-bracket-wrapped text [[12345]]</br></p>]]></root>");
     });
   });
 

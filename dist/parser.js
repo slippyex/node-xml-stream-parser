@@ -142,7 +142,7 @@ var Parser = function (_Writable) {
             break;
 
           case STATE.CDATA:
-            if (prev === "]" && c === "]") this._onCDATAEnd();
+            if (this.buffer[this.pos - 3] === "]" && prev === "]" && c === ">") this._onCDATAEnd();
             break;
 
           case STATE.IGNORE_COMMENT:
@@ -239,7 +239,7 @@ var Parser = function (_Writable) {
     key: "_onCDATAEnd",
     value: function _onCDATAEnd() {
       var text = this._endRecording(); // Will return CDATA[XXX] we regexp out the actual text in the CDATA.
-      text = text.slice(text.indexOf("[") + 1, text.lastIndexOf("]"));
+      text = text.slice(text.indexOf("[") + 1, text.lastIndexOf("]>") - 1);
       this.state = STATE.TEXT;
 
       this.emit(EVENTS.CDATA, text);

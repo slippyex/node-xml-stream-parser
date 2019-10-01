@@ -23,12 +23,15 @@
 	"contributors": [
 		{
 			"name": "Mario Fahlandt"
+		},
+		{
+			"name": "Markus Velten"
 		}
 	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mfahlandt/node-xml-stream"
+		"url": "https://github.com/slippyex/node-xml-stream"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",

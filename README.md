@@ -114,7 +114,7 @@ All the default stream events for NodeJS streams and the below extra events that
 
 
 ### Contributing
-Pull requests and stars always welcome. For bugs and feature requests, please [create an issue.](https://github.com/mfahlandt/node-xml-stream-parser/issues)
+Pull requests and stars always welcome. For bugs and feature requests, please [create an issue.](https://github.com/slippyex/node-xml-stream-parser/issues)
 
 ### License
 MIT
