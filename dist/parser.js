@@ -180,7 +180,6 @@ var Parser = function (_Writable) {
           attributes = _parseTagString2.attributes;
 
       if (name === null) {
-        console.log(tag, name, attributes);
         // Support for non standard doctype tags
         if (tag.toLowerCase().startsWith('!doctype')) {
           name = '!doctype';
