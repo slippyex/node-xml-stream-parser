@@ -180,7 +180,16 @@ var Parser = function (_Writable) {
           attributes = _parseTagString2.attributes;
 
       if (name === null) {
-        this.emit(EVENTS.ERROR, new Error("Failed to parse name for tag" + tag));
+        console.log(tag, name, attributes);
+        // Support for non standard doctype tags
+        if (tag.toLowerCase().startsWith('!doctype')) {
+          name = '!doctype';
+          if (attributes === null) {
+            attributes = {};
+          }
+        } else {
+          this.emit(EVENTS.ERROR, new Error("Failed to parse name for tag" + tag));
+        }
       }
 
       if (this.tagType && this.tagType == TAG_TYPE.OPENING) {
